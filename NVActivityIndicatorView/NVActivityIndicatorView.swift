@@ -290,25 +290,26 @@ public enum NVActivityIndicatorType {
     }
 }
 
+@IBDesignable
 public class NVActivityIndicatorView: UIView {
-    private static let DEFAULT_TYPE: NVActivityIndicatorType = .Pacman
+    private static let DEFAULT_TYPE: NVActivityIndicatorType = .LineScale
     private static let DEFAULT_COLOR = UIColor.whiteColor()
     private static let DEFAULT_SIZE: CGSize = CGSize(width: 40, height: 40)
     
     /// Animation type, value of NVActivityIndicatorType enum.
-    public var type: NVActivityIndicatorType
+    public var type: NVActivityIndicatorType = .LineScale
     
     /// Color of activity indicator view.
-    public var color: UIColor
+    @IBInspectable public var color: UIColor = UIColor.whiteColor()
     
     /// Actual size of animation in view.
-    public var size: CGSize
+    @IBInspectable public var size: CGSize = CGSize(width: 40, height: 40)
     
     /// Current status of animation, this is not used to start or stop animation.
-    public var animating: Bool = false
+    @IBInspectable public var animating: Bool = false
     
     /// Specify whether activity indicator view should hide once stopped.
-    public var hidesWhenStopped: Bool = true
+    @IBInspectable public var hidesWhenStopped: Bool = true
     
     /**
      Create a activity indicator view with default type, color and size.\n
@@ -323,9 +324,6 @@ public class NVActivityIndicatorView: UIView {
      - returns: The activity indicator view.
      */
     required public init?(coder aDecoder: NSCoder) {
-        self.type = NVActivityIndicatorView.DEFAULT_TYPE
-        self.color = NVActivityIndicatorView.DEFAULT_COLOR
-        self.size = NVActivityIndicatorView.DEFAULT_SIZE
         super.init(coder: aDecoder);
         super.backgroundColor = UIColor.clearColor()
     }
@@ -340,6 +338,11 @@ public class NVActivityIndicatorView: UIView {
      
      - returns: The activity indicator view.
      */
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpAnimation()
+    }
+    
     public init(frame: CGRect, type: NVActivityIndicatorType = DEFAULT_TYPE, color: UIColor = DEFAULT_COLOR, size: CGSize = DEFAULT_SIZE) {
         self.type = type
         self.color = color
@@ -370,6 +373,11 @@ public class NVActivityIndicatorView: UIView {
         if hidesWhenStopped && !hidden {
             hidden = true
         }
+    }
+    
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        setUpAnimation()
     }
     
     // MARK: Privates
