@@ -292,12 +292,12 @@ public enum NVActivityIndicatorType {
 
 @IBDesignable
 public class NVActivityIndicatorView: UIView {
-    private static let DEFAULT_TYPE: NVActivityIndicatorType = .LineScale
+    private static let DEFAULT_TYPE: NVActivityIndicatorType = .BallPulse
     private static let DEFAULT_COLOR = UIColor.whiteColor()
     private static let DEFAULT_SIZE: CGSize = CGSize(width: 40, height: 40)
     
     /// Animation type, value of NVActivityIndicatorType enum.
-    public var type: NVActivityIndicatorType = .LineScale
+    public var type: NVActivityIndicatorType = .BallPulse
     
     /// Color of activity indicator view.
     @IBInspectable public var color: UIColor = UIColor.whiteColor()
